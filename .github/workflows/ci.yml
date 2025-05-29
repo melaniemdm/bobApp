@@ -7,22 +7,33 @@ on:
 
 jobs:
   build-and-test-backend:
-    runs-on: maven-latest
+    runs-on: ubuntu-latest     
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
 
     - name: clean install and test
       working-directory: back
       run: mvn clean install
 
   build-and-test-frontend:
-    runs-on: node-latest
+    runs-on: ubuntu-latest     
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
 
     - name: clean install 
       working-directory: front
@@ -30,4 +41,4 @@ jobs:
 
     - name: test
       working-directory: front
-      run: npm test
+      run: npm test 
