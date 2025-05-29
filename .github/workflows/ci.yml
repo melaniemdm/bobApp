@@ -7,24 +7,27 @@ on:
 
 jobs:
   build-and-test-backend:
-    runs-on: maven
+    runs-on: maven-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
     - name: clean install and test
+      working-directory: back
       run: mvn clean install
 
   build-and-test-frontend:
-    runs-on: node
+    runs-on: node-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
     - name: clean install 
+      working-directory: front
       run: npm install
 
     - name: test
+      working-directory: front
       run: npm test
