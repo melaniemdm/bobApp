@@ -6,7 +6,7 @@ on:
   
 
 jobs:
-  build-and-test:
+  build-and-test-backend:
     runs-on: maven
 
     steps:
@@ -16,3 +16,15 @@ jobs:
     - name: clean install and test
       run: mvn clean install
 
+  build-and-test-frontend:
+    runs-on: node
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: clean install 
+      run: npm install
+
+    - name: test
+      run: npm test
