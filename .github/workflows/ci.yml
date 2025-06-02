@@ -27,7 +27,11 @@ jobs:
       working-directory: back
       run: mvn verify
 
-  
+    - name: Upload JaCoCo report
+      uses: actions/upload-artifact@v3
+      with:
+        name: jacoco-report
+        path: back/target/site/jacoco
  
 
   build-and-test-frontend:
