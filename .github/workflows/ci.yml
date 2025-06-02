@@ -50,4 +50,7 @@ jobs:
       working-directory: front
       run: npm test -- --watch=false --browsers=ChromeHeadless
  
-   
+    - name: Run tests with coverage
+      working-directory: front
+      run: npm test -- --watch=false --browsers=ChromeHeadless --code-coverage
+
