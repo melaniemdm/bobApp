@@ -43,3 +43,6 @@ jobs:
       working-directory: front
       run: npm test -- --watch=false --browsers=ChromeHeadless
  
+    - name: Generate JaCoCo Report
+      working-directory: back
+      run: mvn verify
