@@ -1,5 +1,7 @@
 # BobApp
 
+## Badges
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=melaniemdm_bobApp&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=melaniemdm_bobApp)
 
 ---
