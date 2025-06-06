@@ -75,7 +75,11 @@ jobs:
             with:
               java-version: 17
               distribution: temurin
-    
+
+          - name: Build backend (required for Sonar)
+            working-directory: back
+            run: mvn clean compile
+
           - name: Setup Node.js
             uses: actions/setup-node@v4
             with:
@@ -92,7 +96,7 @@ jobs:
             with:
               name: angular-coverage
               path: front/coverage
-    
+          ## Analyse Backend avec Sonar
           - name: Analyze backend with SonarQube
             working-directory: back
             env:
