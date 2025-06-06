@@ -1,3 +1,4 @@
+
 name: CI + SonarQube Angular + Spring Boot
 
 on:
@@ -59,36 +60,71 @@ jobs:
 
 
       ## Analyse Backend avec Sonar
-      - name: Analyze backend with SonarQube
-        working-directory: back
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: >
-          mvn sonar:sonar 
-          -Dsonar.projectKey=melaniemdm_bobApp 
-          -Dsonar.organization=melaniemdm 
-          -Dsonar.host.url=https://sonarcloud.io 
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+  sonar-analysis:
+        needs: build-and-analyze
+        runs-on: ubuntu-latest
+    
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v4
+            with:
+              fetch-depth: 0
+    
+          - name: Setup Java
+            uses: actions/setup-java@v4
+            with:
+              java-version: 17
+              distribution: temurin
+    
+          - name: Setup Node.js
+            uses: actions/setup-node@v4
+            with:
+              node-version: 20
+    
+          - name: Download JaCoCo report
+            uses: actions/download-artifact@v4
+            with:
+              name: jacoco-report
+              path: back/target/site/jacoco
+    
+          - name: Download Angular coverage report
+            uses: actions/download-artifact@v4
+            with:
+              name: angular-coverage
+              path: front/coverage
+    
+          - name: Analyze backend with SonarQube
+            working-directory: back
+            env:
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            run: >
+              mvn sonar:sonar 
+              -Dsonar.projectKey=melaniemdm_bobApp 
+              -Dsonar.organization=melaniemdm 
+              -Dsonar.host.url=https://sonarcloud.io 
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
-      ## Analyse Frontend avec Sonar
-      - name: Analyze frontend with SonarQube
-        uses: SonarSource/sonarqube-scan-action@v5
-        with:
-          projectBaseDir: front
-          args: >
-            -Dsonar.projectKey=melaniemdm_bobApp_front
-            -Dsonar.organization=melaniemdm
-            -Dsonar.sources=src
-            -Dsonar.exclusions=**/*.spec.ts
-            -Dsonar.tests=src
-            -Dsonar.test.inclusions=**/*.spec.ts
-            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    ## Analyse Frontend avec Sonar
+          - name: Analyze frontend with SonarQube
+            uses: SonarSource/sonarqube-scan-action@v5
+            with:
+              projectBaseDir: front
+              args: >
+                -Dsonar.projectKey=melaniemdm_bobApp_front
+                -Dsonar.organization=melaniemdm
+                -Dsonar.sources=src
+                -Dsonar.exclusions=**/*.spec.ts
+                -Dsonar.tests=src
+                -Dsonar.test.inclusions=**/*.spec.ts
+                -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+            env:
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+         
 
   ## Docker       
   docker-build-push:
-    needs: build-and-analyze
+    needs: sonar-analysis
     runs-on: ubuntu-latest
 
     steps:
