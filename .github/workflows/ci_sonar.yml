@@ -104,6 +104,7 @@ jobs:
             run: >
               mvn sonar:sonar 
               -Dsonar.projectKey=melaniemdm_bobApp 
+              -Dsonar.projectName=melaniemdm_bobApp_back 
               -Dsonar.organization=melaniemdm 
               -Dsonar.host.url=https://sonarcloud.io 
               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
