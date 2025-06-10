@@ -72,7 +72,6 @@ Mettre en place une CI/CD avec tests, analyse de qualité SonarQube et déploiem
 
 - **Upload de la couverture Angular** comme artefact
 
-- **Debug** : Vérification du fichier lcov.info
 
 ### **Objectifs**
 
@@ -82,7 +81,7 @@ Mettre en place une CI/CD avec tests, analyse de qualité SonarQube et déploiem
 | Install frontend dependencies | npm install dans ./front | Installer toutes les dépendances nécessaires à l’exécution des tests |
 | Run frontend tests with coverage | npm test avec --code-coverage | Exécuter les tests Angular en mode headless et générer lcov.info |
 | Upload Angular coverage report | Upload du dossier coverage/ | Stocker le rapport de couverture Angular comme artefact |
-| Debug lcov file | ls -l pour vérifier lcov.info | Permet de diagnostiquer si le fichier a été bien généré (utile pour Sonar) |
+
 
 
 ### **Job 2 – Sonar-analysis: Analyse SonarQube**

@@ -55,10 +55,6 @@ jobs:
             path: front/coverage
 
 
-      - name: Debug lcov file
-        run: ls -l front/coverage/**/lcov.info
-
-
       ## Analyse Backend avec Sonar
   sonar-analysis:
         needs: build-and-analyze
@@ -96,6 +92,7 @@ jobs:
             with:
               name: angular-coverage
               path: front/coverage
+              
           ## Analyse Backend avec Sonar
           - name: Analyze backend with SonarQube
             working-directory: back
