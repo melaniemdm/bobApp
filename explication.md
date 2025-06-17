@@ -164,7 +164,7 @@ Utilisation de secrets GitHub DOCKER_USERNAME et DOCKER_TOKEN
  - Reliability : Corriger le bug bloquant identifié 
  - Hotspots Reviewed : Action manuel a réaliser
  - Coverage : Augmenter la couverture de tests (objectif  : 80 %)
-- Maintainability : Réduire  les code smells pour garder une base propre, objectif :  zéro code smell bloquant ou critique
+ - Maintainability : Réduire  les code smells pour garder une base propre, objectif :  zéro code smell bloquant ou critique
 
 
 ### **Metrics actuels Frontend**
