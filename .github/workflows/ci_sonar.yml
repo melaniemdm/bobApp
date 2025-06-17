@@ -100,13 +100,13 @@ jobs:
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             run: >
               mvn sonar:sonar 
-              -Dsonar.projectKey=melaniemdm_bobApp_back 
+              -Dsonar.projectKey=melaniemdm_bobApp
               -Dsonar.projectName=melaniemdm_bobApp_back 
               -Dsonar.organization=melaniemdm 
               -Dsonar.host.url=https://sonarcloud.io 
               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
-    ## Analyse Frontend avec Sonar
+          ## Analyse Frontend avec Sonar
           - name: Analyze frontend with SonarQube
             uses: SonarSource/sonarqube-scan-action@v5
             with:

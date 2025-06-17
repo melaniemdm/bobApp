@@ -9,8 +9,10 @@ Mettre en place une CI/CD avec tests, analyse de qualité SonarQube et déploiem
 
 | Outil | Utilité principale |
 | --- | --- |
+| Github actions | Automatise les étapes d’intégration et de déploiement du projet en lançant des actions à chaque changement du code |
 | SonarCloud | Analyse automatique de la qualité du code bobapp: détection de bugs, vulnérabilités, code smells, duplication, et suivi de la couverture de tests |
 | Docker | Conteneurise de l’application Bobapp (backend et frontend) pour la rendre portable, isolée et facile à déployer sur tout autre environnement |
+| Docker Hub | Permet de centraliser, partager et récupérer les images Docker prêtes à l’emploi pour automatiser les étapes de build, test ou déploiement dans un projet CI/CD |
 | Jasmine | Framework de tests unitaires pour Angular. Permet de valider que le code front fonctionne comme prévu, sans erreur. |
 | JaCoCo | Génère des rapports de couverture de code pour les tests Java. |
 | Maven | Outil de build Java. Compile, exécute les tests, génère les rapports de couverture (JaCoCo) et lance l’analyse Sonar. |
@@ -113,7 +115,7 @@ Utilisation de secrets GitHub DOCKER_USERNAME et DOCKER_TOKEN
 
 | Étape | Description | Objectif |
 | --- | --- | --- |
-| Checkout | Re-récupération du code source (nécessaire pour job indépendant) | Assurer l’accès au code avant construction des images |
+| Checkout | Re-récupération du code source  | Assurer l’accès au code avant construction des images |
 | Docker login | Connexion à Docker Hub avec secrets GitHub | Autoriser le push d’images vers le registre Docker Hub |
 | Build & push backend image | Construction Docker de ./back | Produire une image Docker à jour du backend |
 | Build & push frontend image | Construction Docker de ./front | Produire une image Docker à jour du frontend |
@@ -137,11 +139,11 @@ Utilisation de secrets GitHub DOCKER_USERNAME et DOCKER_TOKEN
 | Code Coverage (%) | 38.8% (back), 47.6% (front) | 80 % recommandé | Garantir qu’au moins 80 % du code est couvert par des tests pour limiter les régressions et améliorer la robustesse du projet |
 
 
-### **KPI 2  – Note de fiabilité (Reliability Rating)**
+### **KPI 2  – Note de fiabilité (Reliability)**
 
 | Indicateur | Valeur actuelle | Seuil recommandé | Pourquoi ? |
 | --- | --- | --- | --- |
-| Reliability Rating (A => E) | D (backend),  A (frontend) | Minimum B | Cet indicateur mesure la présence de bugs potentiels dans le code. Un mauvais score (C, D ou E) indique un risque de défaillance fonctionnelle. |
+| Reliability  (A => E) | D (backend),  A (frontend) | Minimum B | Cet indicateur mesure la présence de bugs potentiels dans le code. Un mauvais score (C, D ou E) indique un risque de défaillance fonctionnelle. |
 
 ### **Metrics actuels Backend**
 
@@ -150,20 +152,19 @@ Utilisation de secrets GitHub DOCKER_USERNAME et DOCKER_TOKEN
 | Security | A (0) | Aucun problème de sécurité détecté |
 | Reliability | D (1) | 1 bug détecté – priorité à corriger |
 | Maintainability | A (8 smells) | Code propre dans l’ensemble, bien maintenable |
-| Hotspots Reviewed | 0.0% | Aucun hotspot de sécurité n’a été examiné (à surveiller si présents) |
+| Hotspots Reviewed | 0.0% | Aucun hotspot de sécurité n’a été examiné (à réaliser manuellement) |
 | Coverage | 38.8% | Faible couverture – insuffisante pour garantir la robustesse |
-| Duplications | 0.0% | Aucun code dupliqué – très bon point |
+| Duplications | 0.0% | Aucun code dupliqué  |
 
 
 
 ### **Conclusion**
 
 
-- Corriger le **bug bloquant** identifié (reliability)
-
-- Revoir les hotspots de sécurité
-
-- Augmenter la couverture de tests (objectif minimum  : 80 %)
+ - Reliability : Corriger le bug bloquant identifié 
+ - Hotspots Reviewed : Action manuel a réaliser
+ - Coverage : Augmenter la couverture de tests (objectif  : 80 %)
+ - Maintainability : Réduire  les code smells pour garder une base propre, objectif :  zéro code smell bloquant ou critique
 
 
 ### **Metrics actuels Frontend**
@@ -179,9 +180,10 @@ Utilisation de secrets GitHub DOCKER_USERNAME et DOCKER_TOKEN
 
 ### **Conclusion**
 
-- Augmenter la couverture de tests (objectif minimum  : 80 %)
+- Coverage : Augmenter la couverture de tests (objectif minimum  : 80 %)
 
-- Réduire davantage les code smells pour garder une base propre
+- Maintainability : Réduire davantage les code smells pour garder une base propre,  objectif :  zéro code smell bloquant ou critique
+
 
 ### **Retours utilisateurs pertinents**
 
