@@ -106,7 +106,7 @@ jobs:
               -Dsonar.host.url=https://sonarcloud.io 
               -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
-    ## Analyse Frontend avec Sonar
+          ## Analyse Frontend avec Sonar
           - name: Analyze frontend with SonarQube
             uses: SonarSource/sonarqube-scan-action@v5
             with:
